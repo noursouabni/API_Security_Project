@@ -27,16 +27,15 @@ INSTALLED_APPS = [
     'security_app',
 ]
 
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
-        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
 }
-
 
 
 CSRF_COOKIE_SECURE = False #no neeed lel CSRF m3a jwt 
@@ -45,9 +44,9 @@ CSRF_COOKIE_SECURE = False #no neeed lel CSRF m3a jwt
 SIMPLE_JWT = {
     'ALGORITHM': 'HS256',
     'SIGNING_KEY': 'ThisIsAStrongSecretKeyForJWT12345!',
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-    'ROTATE_REFRESH_TOKENS': False,
+    'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': False,
 }
 MIDDLEWARE = [
@@ -58,7 +57,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'csp.middleware.CSPMiddleware', 
 ]
+# CSP
+CSP_DEFAULT_SRC = ["'none'"]  # Block everything by default
+CSP_CONNECT_SRC = ["'self'"]  # Allow API requests only from your own site
+CSP_DEFAULT_SRC = ["'self'"]  # Allow resources from the same domain
+CSP_SCRIPT_SRC = ["'self'"]  # Allow JavaScript from your domain
+CSP_STYLE_SRC = ["'self'"]  # Allow CSS from your domain
+CSP_IMG_SRC = ["'self'"]  # Allow images from your domain
+
 
 ROOT_URLCONF = 'api_security_project.urls'
 
@@ -108,6 +116,7 @@ USE_TZ = True
 
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'  
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'security_app.User'
