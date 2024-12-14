@@ -1,14 +1,29 @@
-from django.contrib import admin
-from django.urls import path, include
-from security_app.views import home, UserDetailView, ProtectedViewJWT, ProtectedViewOAuth, check_admin_status
+from django.urls import path
+from .views import (
+    RegisterUserView,
+    UserListView,
+    UserDetailView,
+    login_user,
+    LoginView,
+    ProtectedViewJWT,
+    ProtectedViewOAuth,
+    check_admin_status,
+)
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
-    path('', home, name='home'),  # Root/homepage URL
-    path('admin/', admin.site.urls),  # Admin 
-    path('api/', include('security_app.urls')), 
-    path('oauth2/', include('oauth2_provider.urls', namespace='oauth2_provider')),
-    path('users/<int:id>/', UserDetailView.as_view(), name='user-detail'),
+    # route el authentification
+    path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),  # Login w obtain tokens
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),  # Refresh token
+    path('register/', RegisterUserView.as_view(), name='register'),  # Register user jdid
+
+    # routes teb3in el users
+    path('users/', UserListView.as_view(), name='user-list'),  # List and create users
+    path('users/<int:id>/', UserDetailView.as_view(), name='user-detail'),  # get/Update/Delete user bl ID
+    path('check-admin-status/', check_admin_status, name='check_admin_status'),
+
+    # Protected routes
+    #path('protected/', ProtectedView.as_view(), name='protected'),  # Protected route requiring auth
     path('protected/jwt/', ProtectedViewJWT.as_view(), name='protected-jwt'),
     path('protected/oauth/', ProtectedViewOAuth.as_view(), name='protected-oauth'),
-    path('check-admin-status/', check_admin_status, name='check_admin_status'),
 ]
