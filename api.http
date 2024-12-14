@@ -1,0 +1,74 @@
+### Register a new User
+POST http://127.0.0.1:8000/api/register/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMzA5OTEzLCJpYXQiOjE3MzMzMDYzMTMsImp0aSI6ImNmMTE4NjI5YjliZDRmZmI5YjNlY2U3YTRiODRmOGY1IiwidXNlcl9pZCI6MjB9.XB6jKASS4s-9Y0jshhdzx0WVVC1F_d_tKSTDMWUUESo
+Content-Type: application/json
+
+{
+  "username": "chawki",
+  "email": "chawkiw@mail.com",
+  "password": "amoun2341"
+}
+### Login a User (admin)
+POST http://127.0.0.1:8000/api/login/
+Content-Type: application/json
+
+{
+  "username": "theadmin",
+  "email": "theadmin@mail.com",
+  "password": "admin1234"
+}
+### Login a User (any user) 
+POST http://127.0.0.1:8000/api/login/
+Content-Type: application/json
+
+{
+  "username": "hope_new",
+  "email": "hope_new@mail.com",
+  "password": "amouna1234"
+}
+
+### Update User
+PUT http://127.0.0.1:8000/users/22/ 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMjY0MDQxLCJpYXQiOjE3MzMyNjA0NDEsImp0aSI6ImFkMjcxNzlmN2MyMjQyY2U5YjkxMzAyNTIzNmY3ZTg4IiwidXNlcl9pZCI6MjB9.NTKFeAbnya9ew6p_rdVpnQm2ZR0fGufAtvfRtu_ZIAM
+Content-Type: application/json
+
+{
+  "username": "hope216",
+  "email": "hope216@example.com",
+  "password": "securepassword"
+}
+
+### Delete a User
+DELETE http://127.0.0.1:8000/api/users/22/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMjY0MDQxLCJpYXQiOjE3MzMyNjA0NDEsImp0aSI6ImFkMjcxNzlmN2MyMjQyY2U5YjkxMzAyNTIzNmY3ZTg4IiwidXNlcl9pZCI6MjB9.NTKFeAbnya9ew6p_rdVpnQm2ZR0fGufAtvfRtu_ZIAM
+
+### Get list of all users
+GET http://127.0.0.1:8000/api/users/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMzA2MjYyLCJpYXQiOjE3MzMzMDI2NjIsImp0aSI6IjVmMGRlYmMxNTQ4NzQ5YmRhZGJiNGNmY2M4NDQ4OWEyIiwidXNlcl9pZCI6MjN9.zHnLyXE-KY6ywXLXrbT2fc3IrO_SHNT6mBr5sUobdUc
+### Get a user by ID (replace <user_id> with an actual user ID)
+GET http://127.0.0.1:8000/api/users/17/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMzA2Mzc3LCJpYXQiOjE3MzMzMDI3NzcsImp0aSI6ImJiYzI1MjJmMTAwMTQ0OWRhYWI0ZGIyNTk1MzdjYTRmIiwidXNlcl9pZCI6MjB9.hgnSuOexuZZzVQ-PijxGjmR_ZUw-_1119FzaDL6Z4nk
+### protected route (jwt) admins only
+GET http://127.0.0.1:8000/api/protected/jwt/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMzEwMDQ2LCJpYXQiOjE3MzMzMDY0NDYsImp0aSI6IjU5ZWRmODkzOWIzMjQwNmE5NTRmZjQyODJkZDY4OTk0IiwidXNlcl9pZCI6MjB9.mgJj-J63-V9aSxUQqu-SwJF6ooWuRaO64lOVGeB7gjY
+### to get oauth token
+POST http://127.0.0.1:8000/oauth2/token/
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password&username=theadmin@mail.com&password=admin1234&client_id=LZcfW4li54IQ8FaOoBEymUwZh0wTPZniVCBFxHnv&client_secret=yNnvbQVa3pCozTkb4c9RLLT68TXZcX
+
+### to refresh oauth token meghir mataawd username/password
+POST http://127.0.0.1:8000/oauth2/token/
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=refresh_token&refresh_token=ZQd21XssSTvLjsJh8FFeXR4qmS4yNU&client_id=LZcfW4li54IQ8FaOoBEymUwZh0wTPZniVCBFxHnv&client_secret=yNnvbQVa3pCozTkb4c9RLLT68TXZcX
+
+### Protected route (lel admin kahaw) oauth
+GET http://127.0.0.1:8000/api/protected/oauth/
+Authorization: Bearer VjXTC5IHjSbg0dUuVcU7MRoPJRRM8v
+Content-Type: application/json
+
+{}
+### user admin wela le 
+GET http://127.0.0.1:8000/check-admin-status/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMzEwMDQ2LCJpYXQiOjE3MzMzMDY0NDYsImp0aSI6IjU5ZWRmODkzOWIzMjQwNmE5NTRmZjQyODJkZDY4OTk0IiwidXNlcl9pZCI6MjB9.mgJj-J63-V9aSxUQqu-SwJF6ooWuRaO64lOVGeB7gjY
